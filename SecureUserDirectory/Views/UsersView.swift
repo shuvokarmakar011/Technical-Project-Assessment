@@ -33,6 +33,9 @@ struct UsersView: View {
                     }
                 }
             }
+            .refreshable {
+                viewModel.refreshUsers()
+            }
             .navigationTitle("Users")
             .onAppear {
                 viewModel.fetchUsers()
