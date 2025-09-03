@@ -1,0 +1,25 @@
+# Xcode
+.DS_Store
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcshareddata/
+*.xcodeproj/xcshareddata/
+*.xccheckout
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Swift Package Manager
+.swiftpm/
+
+# Logs
+*.log
+
+# Temporary files
+*.temp
+*.tmp
