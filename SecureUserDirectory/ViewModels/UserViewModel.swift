@@ -12,6 +12,9 @@ class UsersViewModel: ObservableObject {
     @Published var users: [User] = []
     @Published var showErrorAlert: Bool = false
     @Published var errorMessage: String = ""
+    @Published var currentPage: Int = 1
+    @Published var totalPages: Int = 1
+    @Published var isLoading: Bool = false
     
     private let networkService: NetworkServiceProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -20,9 +23,13 @@ class UsersViewModel: ObservableObject {
         self.networkService = networkService
     }
     
-    func fetchUsers() {
-        guard let url = URL(string: "https://reqres.in/api/users?page=1") else {
+    func fetchUsers(page: Int = 1, isRefresh: Bool = false) {
+        guard !isLoading else { return } // Prevent multiple simultaneous requests
+        isLoading = true
+        
+        guard let url = URL(string: "https://reqres.in/api/users?page=\(page)") else {
             showError("Invalid URL")
+            isLoading = false
             return
         }
         
@@ -33,19 +40,38 @@ class UsersViewModel: ObservableObject {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         } else {
             showError("No session token found. Please log in again.")
+            isLoading = false
             return
         }
         
         networkService.performRequest(request)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
+                self?.isLoading = false
                 if case .failure(let error) = completion {
                     self?.showError(error.localizedDescription)
                 }
             } receiveValue: { [weak self] (response: UsersResponse) in
-                self?.users = response.data
+                guard let self = self else { return }
+                if isRefresh || page == 1 {
+                    self.users = response.data // Replace for refresh or first page
+                } else {
+                    self.users.append(contentsOf: response.data) // Append for pagination
+                }
+                self.currentPage = response.page
+                self.totalPages = response.total_pages
             }
             .store(in: &cancellables)
+    }
+    
+    func refreshUsers() {
+        fetchUsers(page: 1, isRefresh: true)
+    }
+    
+    func loadNextPage() {
+        if currentPage < totalPages {
+            fetchUsers(page: currentPage + 1)
+        }
     }
     
     private func showError(_ message: String) {
