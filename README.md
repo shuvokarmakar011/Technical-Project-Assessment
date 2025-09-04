@@ -1,10 +1,9 @@
 ## Architecture Explanation
-•  MVVM: The app uses Model-View-ViewModel architecture. Views are declarative with SwiftUI. ViewModels handle business logic and state (e.g., UsersViewModel for fetching and managing users). Models represent data structures (e.g., User).
-•  Layers:
-	•  Networking: NetworkService handles API calls using URLSession and Combine.
-	•  Security: KeychainService manages secure token storage.
-•  Combine: Used for all network operations.
-•  Bonus: Loading indicators, pull-to-refresh, and infinite scroll pagination implemented.
+>  MVVM: The app uses Model-View-ViewModel architecture. Views are declarative with SwiftUI. ViewModels handle business logic and state (e.g., UsersViewModel for fetching and managing users). Models represent data structures (e.g., User).
+>  Networking: NetworkService handles API calls using URLSession and Combine.
+>  Security: KeychainService manages secure token storage.
+>  Combine: Used for all network operations.
+>  Bonus: Loading indicators, pull-to-refresh, and infinite scroll pagination implemented.
 
 ## Steps to Run the Project
 1.  Open the project in Xcode (15+ recommended).
