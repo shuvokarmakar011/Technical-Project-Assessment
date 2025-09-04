@@ -9,7 +9,7 @@ import Foundation
 import Security
 
 class KeychainHelper {
-    static let shared = KeychainHelper()
+    static var shared = KeychainHelper()
     
     private let service = "com.irinfosys.SecureUserDirectory"
     private let account = "sessionToken"
