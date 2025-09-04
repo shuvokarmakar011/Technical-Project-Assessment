@@ -17,7 +17,7 @@
 •  No offline support or caching.
 
 ## Unit tests
-> Added unit test for Login api call with mock response, Users list api parsing & token storage & retrival.
+> Added unit test for Login api call with mock response, Users list api parsing & token storage & retrieval.
 <img width="580" height="565" alt="Screenshot 2025-09-04 at 12 07 55 PM" src="https://github.com/user-attachments/assets/c13890a5-af9a-4a80-8e00-d45225d2f142" />
 
 
